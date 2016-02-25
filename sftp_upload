@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+require 'net/sftp'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Sftp download script'
+
+  opts.on('-h', '--host HOST', 'Sftp host') { |host| options[:host] = host }
+  opts.on('-u', '--username USERNAME', 'Sftp username') { |username| options[:username] = username }
+  opts.on('-p', '--password PASSWORD', 'Sftp password') { |password| options[:password] = password }
+end.parse!
+
+file = ARGV.shift
+
+Net::SFTP.start(options[:host], options[:username], password: options[:password]) do |sftp|
+	sftp.upload!(file, file)
+end
