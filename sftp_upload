@@ -13,12 +13,14 @@ OptionParser.new do |opts|
   opts.on('-p', '--password PASSWORD', 'Sftp password') { |password| options[:password] = password }
 end.parse!
 
-file = ARGV.shift
+sourcePath = ARGV.shift
+destinationPath = ARGV.shift
+destinationPath ||= sourcePath
 
 raise 'Host parameter must be provided' if options[:host].nil?
 raise 'Username parameter must be provided' if options[:username].nil?
-raise 'File path must be provided' if file.nil?
+raise 'Path to file must be provided' if sourcePath.nil?
 
 Net::SFTP.start(options[:host], options[:username], password: options[:password]) do |sftp|
-	sftp.upload!(file, file)
+	sftp.upload!(sourcePath, destination)
 end
