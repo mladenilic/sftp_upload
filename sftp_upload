@@ -15,6 +15,10 @@ end.parse!
 
 file = ARGV.shift
 
+raise 'Host parameter must be provided' if options[:host].nil?
+raise 'Username parameter must be provided' if options[:username].nil?
+raise 'File path must be provided' if file.nil?
+
 Net::SFTP.start(options[:host], options[:username], password: options[:password]) do |sftp|
 	sftp.upload!(file, file)
 end
