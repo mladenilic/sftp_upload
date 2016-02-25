@@ -20,6 +20,7 @@ dest ||= src
 raise 'Host parameter must be provided' if options[:host].nil?
 raise 'Username parameter must be provided' if options[:username].nil?
 raise 'Path to file must be provided' if src.nil?
+raise "File does not exist (#{src})" unless File.file?(src)
 
 Net::SFTP.start(options[:host], options[:username], password: options[:password]) do |sftp|
 	sftp.upload!(src, dest)
