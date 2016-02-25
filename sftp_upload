@@ -6,7 +6,7 @@ require 'net/sftp'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = 'Sftp download script'
+  opts.banner = 'Sftp upload script'
 
   opts.on('-h', '--host HOST', 'Sftp host') { |host| options[:host] = host }
   opts.on('-u', '--username USERNAME', 'Sftp username') { |username| options[:username] = username }
